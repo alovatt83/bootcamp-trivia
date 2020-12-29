@@ -378,7 +378,6 @@ function highScores() {
   }
 
 
-
   let tryAgain = document.createElement("button");
   tryAgain.setAttribute("id", "tryAgain");
   tryAgain.setAttribute("class", "btn btn-secondary");
