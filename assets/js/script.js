@@ -1,109 +1,309 @@
+// Set Limited Variales
+let hsDiv = document.querySelector("#highscore");
+let masterTimerEl = document.querySelector("#gameTimer");
+let divEl = document.querySelector("#details");
+let timerRemain = document.querySelector("#timers");
+// Set Global Variables
+var questions = false;
+var score = 0;
+var trivia = {};
+var trivialength = 0;
+var timeElapsed = 0;
+var quizTime;
+var questionTurn;
 
-var myQuestions = [
+init();
+
+
+function init() {clearDetails();
+reset();
+// Assigns Button Functions and Attributes
+  let title = document.createElement("p");
+  title.setAttribute("id", "main-title");
+  title.textContent = "JavaScript Quiz : Timed";
+
+  let directions = document.createElement("p");
+  directions.setAttribute("id", "directions");
+  directions.textContent = "You'll have 90 seconds to finish the Quiz! You points will be based on time remaining on the clock. Wrong answers are penalized by reducing your time remaining."; 
+
+  let beginTrivia = document.createElement("button");
+  beginTrivia.setAttribute("id", "beginTrivia");
+  beginTrivia.setAttribute("class", "btn btn-secondary");
+  beginTrivia.textContent= "Start Javascript Quiz";
+
+  divEl.appendChild(title);
+  divEl.appendChild(directions);
+  divEl.appendChild(beginTrivia);
+ 
+
+  beginTrivia.addEventListener("click", function () {
+  
+    playQuiz(triviaQuestions);
+  });
+}
+
+//Assign Content to #Details DIV
+function clearDetails() {divEl.innerHTML = "";
+}
+
+function reset() {
+  score = 0;
+  triviaLength = 0;
+  timeElapsed = 0;
+  quizTime;
+
+  questionDuration = 15;
+  questionSecElapsed = 0;
+  questionTurn;
+}
+
+// Trivia Quiz Question Selections & Answers
+var triviaQuestions = [
   {
-    question: "What is 10/2?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '115'
-    },
-    correctAnswer: 'b'
+    title: "Commonly used data types DO NOT include:",
+    choices: ["strings", "booleans", "alerts", "numbers"],
+    answer: "alerts"
   },
   {
-    question: "What is 30/3?",
-    answers: {
-      a: '3',
-      b: '5',
-      c: '10'
-    },
-    correctAnswer: 'c'
+    title: "The condition in an if / else statement is enclosed within ____.",
+    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+    answer: "parentheses"
+  },
+  {
+    title: "Is JavaScript fun to work with?",
+    choices: ["No", "Sometimes", "What is Javascript", "Not just yes, but HELL YES!"],
+    answer: "Not just yes, but HELL YES!"
+  },
+  {
+    title: "DOM is an abreviation for ____",
+    choices: ["Data Object Mode", "Dumb Old Man", "Document Object Model", "Dutle Opo Mipsy"],
+    answer: "Document Object Model"
+  },
+  {
+    title: "JavaScript is Textile Mark Up (TML) version of Java?",
+    choices: ["True", "False"],
+    answer: "False"
+  },
+  {
+    title: "JavaScript is strongly typed language",
+    choices: ["True", "False"],
+    answer: "False"
   }
 ];
 
-var quizContainer = document.getElementById('quiz');
-var resultsContainer = document.getElementById('results');
-var submitButton = document.getElementById('submit');
 
-generateQuiz(myQuestions, quizContainer, resultsContainer, submitButton);
+// Start Quiz and Begin Session Timer
+function playQuiz(questionSet) {
+  if (questions) { console.log("--- playQuiz ---"); }
 
-function generateQuiz(questions, quizContainer, resultsContainer, submitButton){
-
-  function showQuestions(questions, quizContainer){
-    // we'll need a place to store the output and the answer choices
-    var output = [];
-    var answers;
-
-    // for each question...
-    for(var i=0; i<questions.length; i++){
-      
-      // first reset the list of answers
-      answers = [];
-
-      // for each available answer...
-      for(letter in questions[i].answers){
-
-        // ...add an html radio button
-        answers.push(
-          '<label>'
-            + '<input type="radio" name="question'+i+'" value="'+letter+'">'
-            + letter + ': '
-            + questions[i].answers[letter]
-          + '</label>'
-        );
-      }
-
-      // add this question and its answers to the output
-      output.push(
-        '<div class="question">' + questions[i].question + '</div>'
-        + '<div class="answers">' + answers.join('') + '</div>'
-      );
-    }
-
-    // finally combine our output list into one string of html and put it on the page
-    quizContainer.innerHTML = output.join('');
-  }
-
-
-  function showResults(questions, quizContainer, resultsContainer){
-    
-    // gather answer containers from our quiz
-    var answerContainers = quizContainer.querySelectorAll('.answers');
-    
-    // keep track of user's answers
-    var userAnswer = '';
-    var numCorrect = 0;
-    
-    // for each question...
-    for(var i=0; i<questions.length; i++){
-
-      // find selected answer
-      userAnswer = (answerContainers[i].querySelector('input[name=question'+i+']:checked')||{}).value;
-      
-      // if answer is correct
-      if(userAnswer===questions[i].correctAnswer){
-        // add to the number of correct answers
-        numCorrect++;
-        
-        // color the answers green
-        answerContainers[i].style.color = 'lightgreen';
-      }
-      // if answer is wrong or blank
-      else{
-        // color the answers red
-        answerContainers[i].style.color = 'red';
-      }
-    }
-
-    // show number of correct answers out of total
-    resultsContainer.innerHTML = numCorrect + ' out of ' + questions.length;
-  }
-
-  // show questions right away
-  showQuestions(questions, quizContainer);
   
-  // on submit, show results
-  submitButton.onclick = function(){
-    showResults(questions, quizContainer, resultsContainer);
+  trivia = setUpQuestions(questionSet);
+
+
+  timerRemain.setAttribute("style", "visibility: visible;");
+
+
+  triviaLength = trivia.length * 15;
+  if (questions) { console.log("<<duration g,q>>:",triviaLength,questionDuration); }
+
+  startGameTimer();
+  renderTime();
+
+presentQuestion();
+}
+
+//Push questions into #Details Div
+function setUpQuestions(arr) {
+  if (questions) {console.log("<<setUpQuestions>>");}
+
+  let ranQuest = [];
+
+  for (let i=0; i<arr.length; i++) {
+    ranQuest.push(arr[i]);
   }
+  return ranQuest;
+}
+
+function presentQuestion() {
+  if (questions) {console.log("<<presentQuestion>>");}
+
+
+  questionSecElapsed = 0;
+
+
+  if ( trivia.length === 0 ) {
+    endOfGame();
+    return;
+  }
+
+
+  curQuestion = trivia.pop();
+
+
+  clearDetails();
+   
+
+  let question = document.createElement("h1");
+
+  question.setAttribute("question", curQuestion.title);
+  question.textContent = curQuestion.title;
+  divEl.appendChild(question)
+
+
+  let choiceBox = document.createElement("ul");
+  choiceBox.setAttribute("id","choiceBox");
+  divEl.appendChild(choiceBox);
+
+  for( let i=0; i<curQuestion.choices.length; i++ ) {
+
+    let listChoice = document.createElement("li");
+
+    listChoice.setAttribute("choice-value", curQuestion.choices[i]);
+    listChoice.setAttribute("id","questionNum-"+i);
+    listChoice.textContent = curQuestion.choices[i];
+
+    choiceBox.appendChild(listChoice)
+  }
+
+  if (questions) { console.log("cur", curQuestion);}
+
+
+  choiceBox.addEventListener("click", function (){
+    scoreAnswer(curQuestion);
+  });
 
 }
+
+function scoreAnswer(cur) {
+  if (questions) { console.log("--- scoreAnswer ---");}
+
+  var e = event.target;
+  if ( e.matches("li")) {
+    let selectedItem = e.textContent;
+
+    if (questions) { console.log("selectedItem quiz " + selectedItem); }
+
+    if ( selectedItem === cur.answer ) {
+
+      score += questionDuration - questionSecElapsed;
+
+    } else {
+      if (questions) { console.log("Incorrect Answer");}
+
+      triviaLength -= 10;
+    }
+  if (questions) { console.log("sselected ",selectedItem);}
+    showAnswers(cur);
+
+  }
+}
+
+
+function showAnswers(cur) {
+  if (questions) { console.log("--- showAnswer ---"); }
+
+  if (questions) { console.log("sa qanda",cur);}
+  if (questions) { console.log("sselected ",selectedItem);}
+
+
+  for (let i=0; i<cur.choices.length; i++) {
+    if (questions) { console.log("sa in for ",i);}
+
+    let questid = "#questionNum-" + i;
+
+    let questrow = document.querySelector(questid);
+
+
+
+    if (questions) { console.log("saf selected" + selectedItem + "<");}
+    if (questions) { console.log("saf color questions >" +  cur.choices[i] +"<");}
+
+    if ( cur.choices[i] !== cur.answer ) {
+      if (questions) { console.log("color questions flase");}
+      questrow.setAttribute("style","background-color: red");
+    } else {
+      if (questions) { console.log("color questions true");}
+      questrow.setAttribute("style","background-color: green");
+    }
+  }
+
+  setTimeout(presentQuestion,500);
+}
+
+
+function setGameTime() {
+  if (questions) { console.log("--- setGameTime ---"); }
+  if (questions) { console.log("triviaLength " + triviaLength); }
+  clearInterval(quizTime);
+  gameSeconds = triviaLength;
+}
+
+
+function renderTime() {
+
+  masterTimerEl.textContent = triviaLength - timeElapsed;
+ 
+  if ( (triviaLength - timeElapsed) < 1 ) {
+   endOfGame();
+  }
+}
+
+function startGameTimer () {
+  if (questions) { console.log("--- startGameTimer ---"); }
+  setGameTime();
+
+  quizTime = setInterval(function() {
+    timeElapsed++; 
+    questionSecElapsed++; 
+    renderTime();
+  }, 1000);
+}
+
+function stopTime() {
+  if (questions) { console.log("--- stopTime --- ");}
+  gameSeconds = 0;
+  questionSeconds = 0;
+  clearInterval(quizTime);
+}
+
+
+function endOfGame() {
+  if (questions) { console.log("--- endOfGame ---"); }
+  stopTime();
+  clearDetails();
+
+  timerRemain.setAttribute("style", "visibility: hidden;");
+
+  let title = document.createElement("p");
+  title.setAttribute("id", "main-title");
+  title.textContent = "Game Over! Click 'Play Again' for another shot!";
+
+
+  let directions = document.createElement("p");
+  directions.setAttribute("id", "directions");
+  directions.textContent = " Your score is " + score; 
+
+
+  let tryAgain = document.createElement("button");
+  tryAgain.setAttribute("id", "tryAgain");
+  tryAgain.setAttribute("class", "btn btn-secondary");
+  tryAgain.textContent = "Play again";
+
+
+  let par = document.createElement("p");
+
+  let initialsLabel = document.createElement("label");
+  initialsLabel.setAttribute("for","playerInitials");
+  initialsLabel.textContent = "Enter Initials: ";
+
+  let initialEntry = document.createElement("input");
+  initialEntry.setAttribute("id","playerInitials");
+  initialEntry.setAttribute("name","playerInitials");
+  initialEntry.setAttribute("minlength","3");
+  initialEntry.setAttribute("maxlength","3");
+  initialEntry.setAttribute("size","3");
+ 
+
+
+
+  

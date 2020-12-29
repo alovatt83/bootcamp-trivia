@@ -1,15 +1,34 @@
 <!DOCTYPE html>
-<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./assets/css/style.css">
-    <title>Document</title>
-</head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="./assets/css/style.css">
+    
+    <title>Module 4: JavaScript Trivia</title>
+  </head>
 <body>
-    <div id="quiz"></div>
-<button id="submit">Get Results</button>
-<div id="results"></div>
-    <script src="./assets/js/script.js"></script>
+  <nav class="navbar navbar-expand-md fixed-top">
+      <div class="container-fluid">
+       
+          <h1 id="navbar-title">Module 4: JavaScript Trivia!</h1>
+          <table id=timers style="visibility: hidden;">
+       <div>Time Remaining:</div>
+          
+            <td> <span id="gameTimer" class="nav-item"></span> </td>
+          </tr>
+        </table>
+        </div>
+      </div>
+    </nav>
+
+    <div class="container-fluid">
+
+    <section id="details"> </section>
+  </div>    
+  <nav class="navbar fixed-bottom footer">
+       <div class="footer-text">&copy ADL Software Solutions</div>
+       <div id="highscore" class="nav-item nav-link"> <bold> View High Scores</bold></div>
+  </nav>
+  <script src='./assets/js/script.js'></script>
 </body>
 </html>
