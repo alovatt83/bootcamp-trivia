@@ -25,7 +25,7 @@ let title = document.createElement("p");
 
 let directions = document.createElement("p");
   directions.setAttribute("id", "directions");
-  directions.textContent = "You'll have 90 seconds to finish the Quiz! You points will be based on time remaining on the clock. Wrong answers are penalized by reducing your time remaining."; 
+  directions.textContent = "You'll have 90 seconds to finish the Quiz! You points will be based on time remaining on the clock. Wrong answers are penalized by reducing 10 seconds of your time remaining."; 
 
 let beginTrivia = document.createElement("button");
   beginTrivia.setAttribute("id", "beginTrivia");
@@ -105,7 +105,7 @@ function playQuiz(questionSet) {
 
 
   triviaLength = trivia.length * 15;
-  if (questions) { console.log("<<duration g,q>>:",triviaLength,questionDuration); }
+  if (questions) { console.log("<duration>:",triviaLength,questionDuration); }
 
   startGameTimer();
   renderTime();
@@ -114,7 +114,7 @@ presentQuestion();
 }
 
 // Push questions into #Details Div / Define Time
-function setUpQuestions(arr) {if (questions) {console.log("<setUpQuestions>");}
+function setUpQuestions(arr) {if (questions) {console.log("<questionSetup>");}
 
   let arrayQuest = [];
 
@@ -124,7 +124,7 @@ function setUpQuestions(arr) {if (questions) {console.log("<setUpQuestions>");}
   return arrayQuest;
 }
 
-function presentQuestion() {if (questions) {console.log("<presentQuestion>");}
+function presentQuestion() {if (questions) {console.log("<currentQuestion>");}
 
 questionSecElapsed = 0;
 
@@ -206,12 +206,11 @@ let questrow = document.querySelector(questid);
 
 
 // Display 'Green" for Correct Answers
-    if (questions) { console.log("saf selected" + selectedItem + "<");}
-    if (questions) { console.log("saf color questions >" +  quiz.choices[i] +"<");}
+    if (questions) { console.log("<selected>" + selectedItem + "<");}
+    if (questions) { console.log("<color questions>" +  quiz.choices[i] +"<");}
 
     if ( quiz.choices[i] !== quiz.answer ) {
-      if (questions) { console.log("color questions flase");}
-      questrow.setAttribute("style","background-color: lightgrey");
+   
     } else {
       if (questions) { console.log("color questions true");}
       questrow.setAttribute("style","background-color: green");
@@ -285,9 +284,9 @@ function endOfGame() {if (questions) { console.log("<endOfGame>"); }
   initialsInput.setAttribute("id","userInitials");
   initialsInput.setAttribute("name","userInitials");
   initialsInput.setAttribute("minlength","3");
-  initialsInput.setAttribute("maxlength","3");
-  initialsInput.setAttribute("size","3");
+  initialsInput.setAttribute("size","10");
   initialsInput.setAttribute("border-color", "black");
+
  
 
 
@@ -338,11 +337,11 @@ let title = document.createElement("h2");
 
   if ( storedScores !== null ) {storedScores.sort((a,b) => (a.score < b.score) ? 1: -1);
 
-let numScores2Display = 10;
-    if ( storedScores.length < 10 ) {numScores2Display = storedScores.length; 
+let scoreDisplay = 10;
+    if ( storedScores.length < 10 ) {scoreDisplay = storedScores.length; 
     }
 
-for (var i = 0; i < numScores2Display; i++) {var s = storedScores[i];
+for (var i = 0; i < scoreDisplay; i++) {var s = storedScores[i];
 
       var p = document.createElement("p");
       p.textContent = s.name + " " + s.score;
