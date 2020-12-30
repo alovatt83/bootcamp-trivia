@@ -1,8 +1,8 @@
 // Set Limited Variales
-let hsDiv = document.querySelector("#highscore");
-let masterTimerEl = document.querySelector("#gameTimer");
-let divEl = document.querySelector("#details");
-let timerRemain = document.querySelector("#timers");
+let hsDiv = document.querySelector("#scores");
+let masterTimerEl = document.querySelector("#masterTimer");
+let divEl = document.querySelector("#gameWindow");
+let timerRemain = document.querySelector("#timeRem");
 // Set Global Variables
 var questions = false;
 var score = 0;
@@ -16,17 +16,18 @@ init();
 
 
 function init() {clearDetails();
+
 reset();
 // Assigns Button Functions and Attributes
-  let title = document.createElement("p");
+let title = document.createElement("p");
   title.setAttribute("id", "main-title");
   title.textContent = "JavaScript Quiz : Timed";
 
-  let directions = document.createElement("p");
+let directions = document.createElement("p");
   directions.setAttribute("id", "directions");
   directions.textContent = "You'll have 90 seconds to finish the Quiz! You points will be based on time remaining on the clock. Wrong answers are penalized by reducing your time remaining."; 
 
-  let beginTrivia = document.createElement("button");
+let beginTrivia = document.createElement("button");
   beginTrivia.setAttribute("id", "beginTrivia");
   beginTrivia.setAttribute("class", "btn btn-secondary");
   beginTrivia.textContent= "Start Javascript Quiz";
@@ -94,7 +95,7 @@ var triviaQuestions = [
 
 // Start Quiz and Begin Session Timer
 function playQuiz(questionSet) {
-  if (questions) { console.log("--- playQuiz ---"); }
+  if (questions) { console.log("<playQuiz>"); }
 
   
   trivia = setUpQuestions(questionSet);
@@ -112,115 +113,105 @@ function playQuiz(questionSet) {
 presentQuestion();
 }
 
-//Push questions into #Details Div
-function setUpQuestions(arr) {
-  if (questions) {console.log("<<setUpQuestions>>");}
+// Push questions into #Details Div / Define Time
+function setUpQuestions(arr) {if (questions) {console.log("<setUpQuestions>");}
 
-  let ranQuest = [];
+  let arrayQuest = [];
 
   for (let i=0; i<arr.length; i++) {
-    ranQuest.push(arr[i]);
+    arrayQuest.push(arr[i]);
   }
-  return ranQuest;
+  return arrayQuest;
 }
 
-function presentQuestion() {
-  if (questions) {console.log("<<presentQuestion>>");}
+function presentQuestion() {if (questions) {console.log("<presentQuestion>");}
 
-
-  questionSecElapsed = 0;
+questionSecElapsed = 0;
 
 
   if ( trivia.length === 0 ) {
     endOfGame();
     return;
   }
-
-
-  curQuestion = trivia.pop();
-
+quizQuestion = trivia.pop();
 
   clearDetails();
    
+// Set Question Elemnet Attributes 
+let question = document.createElement("h1");
 
-  let question = document.createElement("h1");
-
-  question.setAttribute("question", curQuestion.title);
-  question.textContent = curQuestion.title;
+  question.setAttribute("question", quizQuestion.title);
+  question.textContent = quizQuestion.title;
   divEl.appendChild(question)
 
-
-  let choiceBox = document.createElement("ul");
+let choiceBox = document.createElement("ul");
   choiceBox.setAttribute("id","choiceBox");
   divEl.appendChild(choiceBox);
 
-  for( let i=0; i<curQuestion.choices.length; i++ ) {
+  for( let i=0; i<quizQuestion.choices.length; i++ ) {
 
-    let listChoice = document.createElement("li");
+let listChoice = document.createElement("li");
 
-    listChoice.setAttribute("choice-value", curQuestion.choices[i]);
+    listChoice.setAttribute("choice-value", quizQuestion.choices[i]);
     listChoice.setAttribute("id","questionNum-"+i);
-    listChoice.textContent = curQuestion.choices[i];
+    listChoice.textContent = quizQuestion.choices[i];
 
     choiceBox.appendChild(listChoice)
   }
 
-  if (questions) { console.log("cur", curQuestion);}
+  if (questions) { console.log("quiz", quizQuestion);}
 
 
   choiceBox.addEventListener("click", function (){
-    scoreAnswer(curQuestion);
+    scoreAnswer(quizQuestion);
   });
 
 }
+// Comnsole Log Sentences
+function scoreAnswer(quiz) {if (questions) { console.log("<scoreAnswer>");}
 
-function scoreAnswer(cur) {
-  if (questions) { console.log("--- scoreAnswer ---");}
+var e = event.target;
+  if ( e.matches("li")) {let selectedItem = e.textContent;
 
-  var e = event.target;
-  if ( e.matches("li")) {
-    let selectedItem = e.textContent;
+    if (questions) { console.log("JavaScript Quiz " + selectedItem); }
 
-    if (questions) { console.log("selectedItem quiz " + selectedItem); }
-
-    if ( selectedItem === cur.answer ) {
+    if ( selectedItem === quiz.answer ) {
 
       score += questionDuration - questionSecElapsed;
 
     } else {
-      if (questions) { console.log("Incorrect Answer");}
+      if (questions) { console.log("Incorrect Answer ");}
 
       triviaLength -= 10;
     }
-  if (questions) { console.log("sselected ",selectedItem);}
-    showAnswers(cur);
+  if (questions) { console.log("selected ",selectedItem);}
+    showAnswers(quiz);
 
   }
 }
 
 
-function showAnswers(cur) {
-  if (questions) { console.log("--- showAnswer ---"); }
+function showAnswers(quiz) {if (questions) { console.log("<showAnswer>"); }
 
-  if (questions) { console.log("sa qanda",cur);}
-  if (questions) { console.log("sselected ",selectedItem);}
-
-
-  for (let i=0; i<cur.choices.length; i++) {
-    if (questions) { console.log("sa in for ",i);}
-
-    let questid = "#questionNum-" + i;
-
-    let questrow = document.querySelector(questid);
+  if (questions) { console.log("Questions & Answers ",quiz);}
+  if (questions) { console.log("selected ",selectedItem);}
 
 
+  for (let i=0; i<quiz.choices.length; i++) {
+    if (questions) { console.log("In for a ",i);}
 
+let questid = "#questionNum-" + i;
+
+let questrow = document.querySelector(questid);
+
+
+// Display 'Green" for Correct Answers
     if (questions) { console.log("saf selected" + selectedItem + "<");}
-    if (questions) { console.log("saf color questions >" +  cur.choices[i] +"<");}
+    if (questions) { console.log("saf color questions >" +  quiz.choices[i] +"<");}
 
-    if ( cur.choices[i] !== cur.answer ) {
+    if ( quiz.choices[i] !== quiz.answer ) {
       if (questions) { console.log("color questions flase");}
-      questrow.setAttribute("style","background-color: red");
+      questrow.setAttribute("style","background-color: lightgrey");
     } else {
       if (questions) { console.log("color questions true");}
       questrow.setAttribute("style","background-color: green");
@@ -232,7 +223,7 @@ function showAnswers(cur) {
 
 
 function setGameTime() {
-  if (questions) { console.log("--- setGameTime ---"); }
+  if (questions) { console.log("<setGameTime>"); }
   if (questions) { console.log("triviaLength " + triviaLength); }
   clearInterval(quizTime);
   gameSeconds = triviaLength;
@@ -243,32 +234,26 @@ function renderTime() {
 
   masterTimerEl.textContent = triviaLength - timeElapsed;
  
-  if ( (triviaLength - timeElapsed) < 1 ) {
-   endOfGame();
-  }
+  if ( (triviaLength - timeElapsed) < 1 ) {endOfGame();}
 }
 
-function startGameTimer () {
-  if (questions) { console.log("--- startGameTimer ---"); }
+function startGameTimer () {if (questions) { console.log("<startGameTimer>"); }
   setGameTime();
 
-  quizTime = setInterval(function() {
-    timeElapsed++; 
+  quizTime = setInterval(function() {timeElapsed++; 
     questionSecElapsed++; 
     renderTime();
   }, 1000);
 }
 
-function stopTime() {
-  if (questions) { console.log("--- stopTime --- ");}
+function stopTime() {if (questions) { console.log("<stopTime>");}
   gameSeconds = 0;
   questionSeconds = 0;
   clearInterval(quizTime);
 }
 
-
-function endOfGame() {
-  if (questions) { console.log("--- endOfGame ---"); }
+//Score Calculation
+function endOfGame() {if (questions) { console.log("<endOfGame>"); }
   stopTime();
   clearDetails();
 
@@ -289,8 +274,8 @@ function endOfGame() {
   tryAgain.setAttribute("class", "btn btn-secondary");
   tryAgain.textContent = "Play again";
 
-
-  let par = document.createElement("p");
+// Highscore Input
+  let bra = document.createElement("p");
 
   let initialsLabel = document.createElement("label");
   initialsLabel.setAttribute("for","userInitials");
@@ -302,6 +287,7 @@ function endOfGame() {
   initialsInput.setAttribute("minlength","3");
   initialsInput.setAttribute("maxlength","3");
   initialsInput.setAttribute("size","3");
+  initialsInput.setAttribute("border-color", "black");
  
 
 
@@ -310,20 +296,19 @@ function endOfGame() {
   divEl.appendChild(directions);
   divEl.appendChild(initialsLabel);
   divEl.appendChild(initialsInput);
-  divEl.appendChild(par);
+  divEl.appendChild(bra);
   divEl.appendChild(tryAgain);
 
   tryAgain.addEventListener("click", init);
 
-  initialsInput.addEventListener("input", function() {
-    initialsInput.value = initialsInput.value.toUpperCase();
+  initialsInput.addEventListener("input", function() {initialsInput.value = initialsInput.value.toUpperCase();
     if ( initialsInput.value.length === 3 ) { 
 
 
-      let thisScore = [ { name: initialsInput.value, score: score } ]; 
+  let thisScore = [ { name: initialsInput.value, score: score } ]; 
 
-
-      let storedScores = JSON.parse(localStorage.getItem("highScores")); 
+// Access Local Storage for Highscores
+  let storedScores = JSON.parse(localStorage.getItem("highScores")); 
       if (questions) { console.log("storedScore",storedScores); }
 
       if (storedScores !== null) { 
@@ -332,53 +317,44 @@ function endOfGame() {
         storedScores = thisScore;
       }
 
-      localStorage.setItem("highScores", JSON.stringify(storedScores));
+  localStorage.setItem("highScores", JSON.stringify(storedScores));
       highScores();
     }
   });
 }
 
-function highScores() {
-  stopTime();
+function highScores() {stopTime();
   clearDetails();
 
   timerRemain.setAttribute("style", "visibility: hidden;");
-
-
-  let storedScores = JSON.parse(localStorage.getItem("highScores")); 
-
-  let title = document.createElement("h2");
+// Display Ranked Highscores from Local Storage
+let storedScores = JSON.parse(localStorage.getItem("highScores")); 
+let title = document.createElement("h2");
   title.setAttribute("id", "main-title");
   title.textContent = "Top 10 Highscores";
 
   divEl.appendChild(title);
 
 
-  if ( storedScores !== null ) {
+  if ( storedScores !== null ) {storedScores.sort((a,b) => (a.score < b.score) ? 1: -1);
 
-    storedScores.sort((a,b) => (a.score < b.score) ? 1: -1);
-
-
-    let numScores2Display = 10;
-    if ( storedScores.length < 10 ) { 
-      numScores2Display = storedScores.length; 
+let numScores2Display = 10;
+    if ( storedScores.length < 10 ) {numScores2Display = storedScores.length; 
     }
 
-    for (var i = 0; i < numScores2Display; i++) {
-      var s = storedScores[i];
+for (var i = 0; i < numScores2Display; i++) {var s = storedScores[i];
 
       var p = document.createElement("p");
       p.textContent = s.name + " " + s.score;
       divEl.appendChild(p);
     }
-  } else {
-    var p = document.createElement("p");
+  } else {var p = document.createElement("p");
+
     p.textContent =  "Enter Your Three Initials"
     divEl.appendChild(p);
   }
-
-
-  let tryAgain = document.createElement("button");
+// Try Again Link To Restart Game
+let tryAgain = document.createElement("button");
   tryAgain.setAttribute("id", "tryAgain");
   tryAgain.setAttribute("class", "btn btn-secondary");
   tryAgain.textContent = "Play!";

@@ -8,26 +8,26 @@
   </head>
 <body>
   <nav class="navbar navbar-expand-md fixed-top">
-      <div class="container-fluid">
+      <div class="container">
        
           <h1 id="navbar-title">Module 4: JavaScript Trivia!</h1>
-          <table id=timers style="visibility: hidden;">
-       <div>Time Remaining:</div>
+          <div id="timeRem">
+      <div>Time Remaining:</div>
           
-            <td> <span id="gameTimer" class="nav-item"></span> </td>
-          </tr>
-        </table>
+      <div><span id="masterTimer" class="nav"></span> </div>
+          </div>
         </div>
       </div>
     </nav>
 
-    <div class="container-fluid">
+    <div class="container">
 
-    <section id="details"> </section>
+    <section id="gameWindow"> </section>
   </div>    
-  <nav class="navbar fixed-bottom footer">
+  <nav class="navbar fixed footer">
        <div class="footer-text">&copy ADL Software Solutions</div>
-       <div id="highscore" class="nav-item nav-link"> <bold> View High Scores</bold></div>
+       </br>
+       <div id="scores" class="nav nav-secondary">View High Scores</div>
   </nav>
   <script src='./assets/js/script.js'></script>
 </body>
