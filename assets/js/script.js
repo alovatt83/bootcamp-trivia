@@ -7,7 +7,6 @@ let timerRemain = document.querySelector("#timeRem");
 var questions = false;
 var score = 0;
 var trivia = {};
-var trivialength = 0;
 var timeElapsed = 0;
 var quizTime;
 var questionTurn;
@@ -61,34 +60,34 @@ function reset() {
 // Trivia Quiz Question Selections & Answers
 var triviaQuestions = [
   {
-    title: "Commonly used data types DO NOT include:",
-    choices: ["strings", "booleans", "alerts", "numbers"],
-    answer: "alerts"
+    title: "Inside which HTML element do we put the JavaScript?:",
+    choices: ["<script>", "<javascript>", "<js>", "<scripting>"],
+    answer: "<script>"
   },
   {
-    title: "The condition in an if / else statement is enclosed within ____.",
-    choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
-    answer: "parentheses"
+    title: "Where is the correct place to insert a JavaScript?:",
+    choices: ["The <body> section", "The <head> section", "Both <head> and <body>", "The <link> section"],
+    answer: "Both <head> and <body>"
   },
   {
-    title: "Is JavaScript fun to work with?",
-    choices: ["No", "Sometimes", "What is Javascript", "Not just yes, but HELL YES!"],
-    answer: "Not just yes, but HELL YES!"
+    title: "How does a WHILE loop start?:",
+    choices: ["while (i <= 10; i++)", "while (i <= 10)", "while i = 1 to 10", "While I wait for my supper."],
+    answer: "while (i <= 10)"
   },
   {
-    title: "DOM is an abreviation for ____",
-    choices: ["Data Object Mode", "Dumb Old Man", "Document Object Model", "Dutle Opo Mipsy"],
-    answer: "Document Object Model"
+    title: "How do you create a function in JavaScript?:",
+    choices: ["function = myFunction()", "function:myFunction()", "function myFunction()", "call me maybe"],
+    answer: "function myFunction()"
   },
   {
-    title: "JavaScript is Textile Mark Up (TML) version of Java?",
+    title: "The external JavaScript file must contain the <script> tag:",
     choices: ["True", "False"],
     answer: "False"
   },
   {
-    title: "JavaScript is strongly typed language",
+    title: "What will the following code return: Boolean(10 > 9):",
     choices: ["True", "False"],
-    answer: "False"
+    answer: "True"
   }
 ];
 
@@ -223,7 +222,7 @@ let questrow = document.querySelector(questid);
 
 function setGameTime() {
   if (questions) { console.log("<setGameTime>"); }
-  if (questions) { console.log("triviaLength " + triviaLength); }
+  if (questions) { console.log("triviaLength" + triviaLength); }
   clearInterval(quizTime);
   gameSeconds = triviaLength;
 }

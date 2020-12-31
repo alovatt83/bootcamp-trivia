@@ -1,9 +1,9 @@
 body {
 
   background-image: url('../images/background.png');
-  font-family: Dosis, Helvetica, sans-serif;
-  font-size: 28px;
-  padding-top: 110px;
+  font-family: Titillium Sans, Helvetica, sans-serif;
+  font-size: 22px;
+  padding-top: 70px;
   font-weight: 900;
 }
 
@@ -54,7 +54,6 @@ button {
   margin-bottom: 80px;
   padding: 40px;
   text-align: center;
-  display: block;
 } 
 
 li {
@@ -64,7 +63,7 @@ li {
   padding: 5px;
   background-color: #1519f3;
   color: #fff;
-  font-size: 36px;
+  font-size: 28px;
   line-height: 1.5;
   list-style-type: none;
 }
