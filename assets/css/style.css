@@ -55,10 +55,10 @@ button {
 } 
 
 li {
-  height: 25px;
-  margin-top: 2px;
-  margin-bottom: 2px;
-  padding: 2px;
+  height: 40px;
+  margin-top: 8px;
+  margin-bottom: 5px;
+  padding: 10px;
   background-color: #1519f3;
   color: #fff;
   font-size: 14px;
