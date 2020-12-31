@@ -1,5 +1,4 @@
 body {
-
   background-image: url('../images/background.png');
   font-family: Titillium Sans, Helvetica, sans-serif;
   font-size: 22px;
@@ -48,7 +47,6 @@ button {
 }
 
 #gameWindow {
-
   background-color: lightgrey;  
   margin-top: 20px;
   margin-bottom: 80px;
@@ -63,8 +61,8 @@ li {
   padding: 5px;
   background-color: #1519f3;
   color: #fff;
-  font-size: 28px;
-  line-height: 1.5;
+  font-size: 20px;
+  line-height: 1;
   list-style-type: none;
 }
 
