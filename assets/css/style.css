@@ -55,13 +55,13 @@ button {
 } 
 
 li {
-  height: 30px;
+  height: 25px;
   margin-top: 2px;
   margin-bottom: 2px;
   padding: 2px;
   background-color: #1519f3;
   color: #fff;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 1.5;
   list-style-type: none;
 }
