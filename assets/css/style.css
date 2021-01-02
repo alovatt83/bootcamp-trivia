@@ -18,6 +18,7 @@ button {
   display: inline-block;
   border: none;
   transition: all 0.4s ease 0s;
+  cursor: pointer;
 }
 
 .navbar {
@@ -63,9 +64,10 @@ li {
   background-color: #1519f3;
   color: #fff;
   font-size: 14px;
-  line-height: 2go;
+  line-height: 50%;
   list-style-type: none;
   border-right: none;
+  cursor: pointer;
 }
 
 .timeRem {
@@ -79,6 +81,7 @@ li {
   border-top: solid;
   border-top-color: #1519f3;  
   border-top-width: 70px;
+ 
 }
 
 .footer-text {
@@ -100,5 +103,6 @@ li {
 
   .nav-secondary:hover {
     color: blue;
+    cursor: pointer;
   }
 

@@ -10,6 +10,8 @@ var trivia = {};
 var timeElapsed = 0;
 var quizTime;
 var questionTurn;
+var selectedItem;
+var triviaLength = 90;
 
 init();
 
@@ -24,7 +26,7 @@ let title = document.createElement("p");
 
 let directions = document.createElement("p");
   directions.setAttribute("id", "directions");
-  directions.textContent = "You'll have 90 seconds to finish the Quiz! Your points will be based on time remaining on the clock. Wrong answers are penalized by reducing 10 seconds of your time remaining."; 
+  directions.textContent = "You'll have 60 seconds to finish the Quiz! Your points will be based on time remaining on the clock. Wrong answers are penalized by reducing 10 seconds of your time remaining."; 
 
 let beginTrivia = document.createElement("button");
   beginTrivia.setAttribute("id", "beginTrivia");
@@ -48,13 +50,13 @@ function clearDetails() {divEl.innerHTML = "";
 
 function reset() {
   score = 0;
-  triviaLength = 0;
+  triviaLength = 90;
   timeElapsed = 0;
-  quizTime;
+
 
   questionDuration = 15;
   questionSecElapsed = 0;
-  questionTurn;
+
 }
 
 // Trivia Quiz Question Selections & Answers
@@ -103,7 +105,7 @@ function playQuiz(questionSet) {
   timerRemain.setAttribute("style", "visibility: visible;");
 
 
-  triviaLength = trivia.length * 15;
+  triviaLength = trivia.length * 10 + 30;
   if (questions) { console.log("<duration>:",triviaLength,questionDuration); }
 
   startGameTimer();
@@ -141,7 +143,7 @@ let question = document.createElement("h1");
 
   question.setAttribute("question", quizQuestion.title);
   question.textContent = quizQuestion.title;
-  divEl.appendChild(question)
+  divEl.appendChild(question);
 
 let choiceBox = document.createElement("ul");
   choiceBox.setAttribute("id","choiceBox");
@@ -155,7 +157,7 @@ let listChoice = document.createElement("li");
     listChoice.setAttribute("id","questionNum-"+i);
     listChoice.textContent = quizQuestion.questions[i];
 
-    choiceBox.appendChild(listChoice)
+    choiceBox.appendChild(listChoice);
   }
 
   if (questions) { console.log("quiz", quizQuestion);}
@@ -172,14 +174,14 @@ function scoreAnswer(quiz) {if (questions) { console.log("<scoreAnswer>");}
 var e = event.target;
   if ( e.matches("li")) {let selectedItem = e.textContent;
 
-    if (questions) { console.log("JavaScript Quiz " + selectedItem); }
+  if (questions) { console.log("JavaScript Quiz " + selectedItem); }
 
-    if ( selectedItem === quiz.answer ) {
+  if ( selectedItem === quiz.answer ) {
 
       score += questionDuration - questionSecElapsed;
 
     } else {
-      if (questions) { console.log("Incorrect Answer ");}
+  if (questions) { console.log("Incorrect Answer ");}
 
       triviaLength -= 10;
     }
@@ -197,7 +199,7 @@ function showAnswers(quiz) {if (questions) { console.log("<showAnswer>"); }
 
 
   for (let i=0; i<quiz.questions.length; i++) {
-    if (questions) { console.log("In for a ",i);}
+  if (questions) { console.log("In for a ",i);}
 
 let questid = "#questionNum-" + i;
 
@@ -211,7 +213,7 @@ let questrow = document.querySelector(questid);
     if ( quiz.questions[i] !== quiz.answer ) {
    
     } else {
-      if (questions) { console.log("color questions true");}
+    if (questions) { console.log("color questions true");}
       questrow.setAttribute("style","background-color: green");
     }
   }
@@ -224,7 +226,7 @@ function setGameTime() {
   if (questions) { console.log("<setGameTime>"); }
   if (questions) { console.log("triviaLength" + triviaLength); }
   clearInterval(quizTime);
-  gameSeconds = triviaLength;
+
 }
 
 
@@ -245,8 +247,7 @@ function startGameTimer () {if (questions) { console.log("<startGameTimer>"); }
 }
 
 function stopTime() {if (questions) { console.log("<stopTime>");}
-  gameSeconds = 0;
-  questionSeconds = 0;
+
   clearInterval(quizTime);
 }
 
@@ -337,7 +338,7 @@ let title = document.createElement("h2");
   if ( storedScores !== null ) {storedScores.sort((a,b) => (a.score < b.score) ? 1: -1);
 
 let scoreDisplay = 10;
-    if ( storedScores.length < 10 ) {scoreDisplay = storedScores.length; 
+  if ( storedScores.length < 10 ) {scoreDisplay = storedScores.length; 
     }
 
 for (var i = 0; i < scoreDisplay; i++) {var s = storedScores[i];
@@ -348,7 +349,7 @@ for (var i = 0; i < scoreDisplay; i++) {var s = storedScores[i];
     }
   } else {var p = document.createElement("p");
 
-    p.textContent =  "Enter Your Three Initials"
+    p.textContent =  "Enter Your Three Initials";
     divEl.appendChild(p);
   }
 // Try Again Link To Restart Game
