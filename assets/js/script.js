@@ -24,7 +24,7 @@ let title = document.createElement("p");
 
 let directions = document.createElement("p");
   directions.setAttribute("id", "directions");
-  directions.textContent = "You'll have 90 seconds to finish the Quiz! You points will be based on time remaining on the clock. Wrong answers are penalized by reducing 10 seconds of your time remaining."; 
+  directions.textContent = "You'll have 90 seconds to finish the Quiz! Your points will be based on time remaining on the clock. Wrong answers are penalized by reducing 10 seconds of your time remaining."; 
 
 let beginTrivia = document.createElement("button");
   beginTrivia.setAttribute("id", "beginTrivia");
