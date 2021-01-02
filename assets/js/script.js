@@ -283,7 +283,7 @@ function endOfGame() {if (questions) { console.log("<endOfGame>"); }
   let initialsInput = document.createElement("input");
   initialsInput.setAttribute("id","userInitials");
   initialsInput.setAttribute("name","userInitials");
-  initialsInput.setAttribute("minlength","1");
+  initialsInput.setAttribute("minlength","3");
   initialsInput.setAttribute("size","10");
   initialsInput.setAttribute("border-color", "black");
 
