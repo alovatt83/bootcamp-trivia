@@ -61,32 +61,32 @@ function reset() {
 var triviaQuestions = [
   {
     title: "Inside which HTML element do we put the JavaScript?:",
-    choices: ["<script>", "<javascript>", "<js>", "<scripting>"],
+    questions: ["<script>", "<javascript>", "<js>", "<scripting>"],
     answer: "<script>"
   },
   {
     title: "Where is the correct place to insert a JavaScript?:",
-    choices: ["The <body> section", "The <head> section", "Both <head> and <body>", "The <link> section"],
+    questions: ["The <body> section", "The <head> section", "Both <head> and <body>", "The <link> section"],
     answer: "Both <head> and <body>"
   },
   {
     title: "How does a WHILE loop start?:",
-    choices: ["while (i <= 10; i++)", "while (i <= 10)", "while i = 1 to 10", "While I wait for my supper."],
+    questions: ["while (i <= 10; i++)", "while (i <= 10)", "while i = 1 to 10", "While I wait for my supper."],
     answer: "while (i <= 10)"
   },
   {
     title: "How do you create a function in JavaScript?:",
-    choices: ["function = myFunction()", "function:myFunction()", "function myFunction()", "call me maybe"],
+    questions: ["function = myFunction()", "function:myFunction()", "function myFunction()", "call me maybe"],
     answer: "function myFunction()"
   },
   {
     title: "The external JavaScript file must contain the <script> tag:",
-    choices: ["True", "False"],
+    questions: ["True", "False"],
     answer: "False"
   },
   {
     title: "What will the following code return: Boolean(10 > 9):",
-    choices: ["True", "False"],
+    questions: ["True", "False"],
     answer: "True"
   }
 ];
@@ -147,13 +147,13 @@ let choiceBox = document.createElement("ul");
   choiceBox.setAttribute("id","choiceBox");
   divEl.appendChild(choiceBox);
 
-  for( let i=0; i<quizQuestion.choices.length; i++ ) {
+  for( let i=0; i<quizQuestion.questions.length; i++ ) {
 
 let listChoice = document.createElement("li");
 
-    listChoice.setAttribute("choice-value", quizQuestion.choices[i]);
+    listChoice.setAttribute("choice-value", quizQuestion.questions[i]);
     listChoice.setAttribute("id","questionNum-"+i);
-    listChoice.textContent = quizQuestion.choices[i];
+    listChoice.textContent = quizQuestion.questions[i];
 
     choiceBox.appendChild(listChoice)
   }
@@ -196,7 +196,7 @@ function showAnswers(quiz) {if (questions) { console.log("<showAnswer>"); }
   if (questions) { console.log("selected ",selectedItem);}
 
 
-  for (let i=0; i<quiz.choices.length; i++) {
+  for (let i=0; i<quiz.questions.length; i++) {
     if (questions) { console.log("In for a ",i);}
 
 let questid = "#questionNum-" + i;
@@ -206,9 +206,9 @@ let questrow = document.querySelector(questid);
 
 // Display 'Green" for Correct Answers
     if (questions) { console.log("<selected>" + selectedItem + "<");}
-    if (questions) { console.log("<color questions>" +  quiz.choices[i] +"<");}
+    if (questions) { console.log("<color questions>" +  quiz.questions[i] +"<");}
 
-    if ( quiz.choices[i] !== quiz.answer ) {
+    if ( quiz.questions[i] !== quiz.answer ) {
    
     } else {
       if (questions) { console.log("color questions true");}

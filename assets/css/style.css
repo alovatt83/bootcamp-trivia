@@ -4,7 +4,7 @@ body {
   font-size: 22px;
   padding-top: 40px;
   font-weight: 900;
-  display: ;
+  
 }
 
 button {
@@ -63,7 +63,7 @@ li {
   background-color: #1519f3;
   color: #fff;
   font-size: 14px;
-  line-height: 2;
+  line-height: 2go;
   list-style-type: none;
   border-right: none;
 }
@@ -101,4 +101,4 @@ li {
   .nav-secondary:hover {
     color: blue;
   }
-}
+
